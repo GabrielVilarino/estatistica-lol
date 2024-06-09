@@ -1,0 +1,16 @@
+Criar um Ambiente virtual:
+
+python -m venv
+
+Ativar Ambiente Virtual:
+
+./Scripts/activate
+
+Executar Aplicação:
+
+$env:FLASK_APP = "index.py"
+
+Debug:
+
+if __name__ == "__main__":
+    app.run(debug=True)

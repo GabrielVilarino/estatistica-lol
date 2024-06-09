@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_index.css') }}">
+</head>
+<body>
+    <section class="topo">
+        <section class="pesquisar">
+            <h2>Login</h2>
+            <form action="/pesquisar-usuario" method="post" id="search_form">
+                <div>
+                    <label for="game_name">Nome do Usuário:</label>
+                    <input type="text" id="game_name" name="game_name" required>
+                </div>
+                <div>
+                    <label for="tag_line">Tag:</label>
+                    <input type="tag_line" id="tag_line" name="tag_line" required>
+                </div>
+                <div>
+                    <button type="submit">Pesquisar</button>
+                </div>
+            </form>
+        </section>
+    </section>
+</body>
+<script src="{{ url_for('static', filename='js/script_index.js') }}"></script>
+</html>
