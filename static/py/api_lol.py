@@ -5,7 +5,7 @@ class Api:
     URL_BASE_BR1 = 'https://br1.api.riotgames.com'
 
     def __init__(self):
-        self.api_key = 'RGAPI-96882626-bfb4-4852-9148-e3f906744140'
+        self.api_key = 'RGAPI-63df61b3-be06-4e0f-bf27-c472c776d0be'
         self.headers = {
             'X-Riot-Token': self.api_key
         }
@@ -30,7 +30,30 @@ class Api:
         if response.status_code == 200:
             # Dados do invocador
             data = response.json()
-            puuid = data['puuid']
-            return puuid
+            return data
+        else:
+            return None
+        
+
+    def obter_icone_jogador(self,
+                            puuid : str):
+        """
+        Parâmetros
+
+        - puuid: puuid do jogador
+
+        Função faz uma requisição get para a api esperando o retorno
+        do id do icone do jogador.
+        """
+
+        url_icone = Api.URL_BASE_BR1 + f'/lol/summoner/v4/summoners/by-puuid/{puuid}'
+
+        response = requests.get(url_icone, headers=self.headers)
+
+        if response.status_code == 200:
+            # Dados do invocador
+            data = response.json()
+            id_icone = data['profileIconId']
+            return id_icone
         else:
             return None

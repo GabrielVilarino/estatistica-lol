@@ -1,3 +1,10 @@
+/*
+Autor: Gabriel Vilarino
+
+Script para alterar a página e salvar o puuid do jogador
+no LocalStorage para futuras pesquisas.
+*/
+
 document.getElementById('search_form').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -10,11 +17,18 @@ document.getElementById('search_form').addEventListener('submit', function(event
     })
     .then(response => response.json())
     .then(data => {
-        if (data.puuid) {
-            localStorage.setItem('puuid', data.puuid);
-            document.getElementById('game_name').value = ''
-            document.getElementById('tag_line').value = ''
-            window.location.href = '/home';
+        if (data) {
+            jsonData = JSON.stringify(data)
+
+            if (data.error){
+                alert(data.error)
+            }
+            else{
+                localStorage.setItem('userData', jsonData);
+                document.getElementById('game_name').value = ''
+                document.getElementById('tag_line').value = ''
+                window.location.href = '/home';
+            }
         }else{
             alert('Erro: ' + data.error);
         }

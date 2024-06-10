@@ -6,6 +6,8 @@ from static.py.api_lol import Api
 app = Flask(__name__)
 
 api = Api()
+puuid = None
+
 @app.route('/')
 def index():
 
@@ -19,13 +21,29 @@ def home():
 
 @app.route('/pesquisar-usuario', methods=['POST'])
 def pesquisar_usuario():
+    global puuid
     game_name = request.form['game_name']
     password = request.form['tag_line']
 
-    puuid_jogador = api.obter_puuid_jogador(game_name=game_name,
+    data_jogador = api.obter_puuid_jogador(game_name=game_name,
                                             tag_line=password)
+
+    if data_jogador is not None:
+        puuid = data_jogador['puuid']
     
-    if puuid_jogador:
-        return jsonify({'puuid': puuid_jogador})
+    if data_jogador:
+        return jsonify({'data': data_jogador})
     else:
         return jsonify({'error': 'Jogador não encontrado'})
+    
+
+@app.route('/obter-icone')
+def obter_icone_usuario():
+    icone_jogador = api.obter_icone_jogador(puuid=puuid)
+
+    if icone_jogador:
+        print(icone_jogador)
+        return jsonify({'idIcone': icone_jogador})
+    else:
+        return jsonify({'error': 'Ícone não encontrado'})
+
